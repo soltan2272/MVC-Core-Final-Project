@@ -225,33 +225,8 @@ namespace Final_Project.Controllers
             UnitOfWork.Save();
             return result;
         }
-        [Route("OrderID/{id}")]
-        public ResultViewModel OrderID(int id)
-        {
-            result.Message = " OrderID";
-            result.Data = UnitOfWork.context().Orders.Where(o => o.ID == id).Select(o => new {
-                o.ID,
-                o.Order_Date,
-                o.productOrders,
-                o.Quantity,
-                o.TotalPrice,
-                o.User,
-                o.Delivery_Status,
-                o.Governmate
-            }).FirstOrDefault();
-            return result;
-        }
-
-        [HttpPut("Updateorder")]
-        public ResultViewModel Updateorder(Order order)
-        {
-
-            result.Message = " order";
-            result.Data = order;
-            OrderRepo.Update(order);
-            UnitOfWork.Save();
-            return result;
-        }
+       
+      
 
         [HttpPost("addorder")]
         public ResultViewModel addorder(Order order)
