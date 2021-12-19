@@ -225,6 +225,48 @@ namespace Final_Project.Controllers
             UnitOfWork.Save();
             return result;
         }
+       
+      
+
+        [HttpPost("addorder")]
+        public ResultViewModel addorder(Order order)
+        {
+
+            result.Message = " order";
+            result.Data = order;
+            OrderRepo.Add(order);
+            UnitOfWork.Save();
+            return result;
+        }
+
+        [HttpGet("getOrder/{id}")]
+        public ResultViewModel getOrder(int id)
+        {
+
+            result.Message = " order";
+            result.Data = OrderRepo.GetByID(id);
+            return result;
+        }
+        [HttpGet("allOrders")]
+        public ResultViewModel allOrders()
+        {
+
+            result.Message = " order";
+            result.Data = UnitOfWork.context().Orders.Select(o => new
+            {
+                o.ID,
+                o.Order_Date,
+                o.Quantity,
+                o.TotalPrice,
+                o.User,
+                o.Delivery_Status,
+                o.Governmate,
+                o.CurrentUserID
+            }
+           );
+            return result;
+        }
 
     }
+
 }
