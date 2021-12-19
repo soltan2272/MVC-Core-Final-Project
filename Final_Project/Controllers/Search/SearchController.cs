@@ -193,5 +193,81 @@ namespace Final_Project.Controllers
             }
             return result;
         }
+        [HttpGet("TopRate")]
+        public ResultViewModel TopRate()
+        {
+            var res = result.Data = Context.Products.Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.Rate,
+                p.Product_Images,
+            }).OrderByDescending(o => o.Rate).Take(8); ;
+
+            if (res != null)
+            {
+                result.Message = "Products By Seller Name ";
+                result.Data = res;
+            }
+            else
+            {
+                result.ISuccessed = false;
+                result.Message = "not found";
+            }
+            return result;
+        }
+        [HttpGet("CheepProducts")]
+        public ResultViewModel CheepProducts()
+        {
+            var res = result.Data = Context.Products.Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.Rate,
+                p.Product_Images,
+            }).OrderBy(o => o.Price).Take(8); ;
+
+            if (res != null)
+            {
+                result.Message = "Products By Seller Name ";
+                result.Data = res;
+            }
+            else
+            {
+                result.ISuccessed = false;
+                result.Message = "not found";
+            }
+            return result;
+        }
+
+        [HttpGet("NewProducts")]
+        public ResultViewModel NewProducts()
+        {
+            var res = result.Data = Context.Products.Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.Rate,
+                p.Product_Images,
+            }).OrderBy(o => o.ID).Take(8); ;
+
+            if (res != null)
+            {
+                result.Message = "Products By Seller Name ";
+                result.Data = res;
+            }
+            else
+            {
+                result.ISuccessed = false;
+                result.Message = "not found";
+            }
+            return result;
+        }
     }
 }

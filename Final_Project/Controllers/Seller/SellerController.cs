@@ -38,7 +38,7 @@ namespace Final_Project.Controllers
 
             var result = await UserRepository.SignUp(signupModel);
             if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+                return Ok(result);
 
             var adminRole = new AddRoleModel
             {
@@ -59,7 +59,7 @@ namespace Final_Project.Controllers
 
             var result = await UserRepository.Login(loginModel);
             if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+                return Ok(result); ;
             return Ok(result);
         }
 
