@@ -1,5 +1,4 @@
-﻿@using Models;
-@model FileUplode
+﻿<!--@using Models;
 @{
     ViewData["Title"] = "addProduct";
 
@@ -7,7 +6,7 @@
 
 <h2>Add Product </h2>
 <div class="container-fluid" style="margin-left:250px">
-    <form asp-action="Addimage" role="form">
+    <form asp-action="Addimage" role="form">-->
         @*<div class="mb-3">
                 <label class="form-label">ID</label>
                 <input type="text" asp-for="ID" class="form-control" placeholder="Enter Store ID">
@@ -48,13 +47,13 @@
                 <input type="text" asp-for="CurrentCategoryID" class="form-control" placeholder="Enter Product CurrentCategoryID">
             </div>*@
 
-        <div class="mb-3">
+        @*<div class="mb-3">
             <label class="form-label">CurrentSupplierID</label>
-            <input type="file" asp-for="@Model.files" value="2" class="form-control" placeholder="Enter Product CurrentSupplierID">
+            <input type="file" asp-for=" " value="2" class="form-control" placeholder="Enter Product CurrentSupplierID">*@
 
-        </div>
+        <!--</div>-->
         @*@Html.ActionLink("add", "Addimage", new { file = @file }, new { @class = "btn btn-danger" })*@
 
-        <button type="submit" class="btn btn-light">Submit</button>
+        <!--<button type="submit" class="btn btn-light">Submit</button>
     </form>
-</div>
+</div>-->

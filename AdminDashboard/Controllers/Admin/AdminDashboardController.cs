@@ -1181,42 +1181,6 @@ namespace AdminDashboard.Controllers
                 return Redirect("/AdminDashboard/Login");
             }
         }
-        [HttpPost]
-        public async Task<IActionResult> Addimage([FromForm] FileUplode file)
-        {
-            if (HttpContext.Request.Cookies["UserToken"] != "")
-            {
-                if (ModelState.IsValid)
-                {
-                    var client = new HttpClient();
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.Timeout = TimeSpan.FromSeconds(60);
-                    client.BaseAddress = new Uri("https://localhost:44354/");
-                    var content = new StringContent(JsonConvert.SerializeObject(file), Encoding.UTF8, "application/json");
-
-                    using (HttpResponseMessage response = await client.PostAsync("api/Imgapi/", content))
-                    {
-                        var responseContent = response.Content.ReadAsStringAsync().Result;
-                        response.EnsureSuccessStatusCode();
-                        return Redirect("/AdminDashboard/myStore");
-
-                    }
-
-
-                }
-                else
-                {
-                    return View();
-                }
-
-
-
-            }
-            else
-            {
-                return Redirect("/AdminDashboard/Login");
-            }
-        }
-
+       
     }
 }
