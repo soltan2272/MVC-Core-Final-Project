@@ -12,6 +12,11 @@
 <div class="review-content-section">
     <div class="input-group mg-b-pro-edt">
 
+        @Html.LabelFor(o => o.ID, new { @class = "input-group-addon" })
+        @Html.TextBoxFor(o => o.ID, new { @class = "text-dark", @readonly = "readonly" })
+    </div>
+    <div class="input-group mg-b-pro-edt">
+
         @Html.LabelFor(o => o.Order_Date, new { @class = "input-group-addon" })
         @Html.TextBoxFor(o => o.Order_Date, new { @class = "text-dark", @readonly = "readonly" })
     </div>

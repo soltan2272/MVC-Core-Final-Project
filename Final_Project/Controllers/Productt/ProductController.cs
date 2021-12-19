@@ -372,7 +372,58 @@ namespace Final_Project.Controllers
             return result;
         }
 
+        [HttpPost("addangularimages")]
+        public ResultViewModel addangularimages(Images[] image)
+        {
+            var res = image;
+            result.Message = "Add Images for Product";
+            Product pro = ProductRepo.Get().OrderByDescending(o=>o.ID).Take(1).FirstOrDefault();
+            if (pro != null)
+            {
+                for(int i = 0; i < image.Length; i++)
+                {
+                    image[i].product = pro;
+
+                }
+                UnitOfWork.context().Images.AddRange(image);
+                UnitOfWork.Save();
+                result.Data = image;
+
+            }
+            else
+            {
+                result.ISuccessed = false;
+                result.Message = "not Added";
+            }
+
+            return result;
+        }
+        [HttpPost("addangularProduct")]
+        public ResultViewModel addangularProduct(Product product)
+        {
+            //StoreProduct sp = new StoreProduct();
+            var res = product;
+            result.Message = "Add Product";
+
+
+            Category Cat = CategoryRepo.Get().Where(c => c.ID == product.CurrentCategoryID).FirstOrDefault();
+            if (Cat != null)
+            {
+                product.category = Cat;
+            }
+            User saller = Context.Users.Where(s => s.Id == product.CurrentSupplierID).FirstOrDefault();
+            if (saller != null)
+            {
+                product.supplier = saller;
+            }
+
+            ProductRepo.Add(product);
+            UnitOfWork.Save();
+            result.Data = product;
+
+            return result;
+        }
 
     }
-    }
+}
      

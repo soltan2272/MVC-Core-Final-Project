@@ -1091,7 +1091,6 @@ namespace AdminDashboard.Controllers
             }
 
         }
-
         [HttpPost]
         public async Task<IActionResult> LocationStatus(Order order)
         {
@@ -1106,11 +1105,11 @@ namespace AdminDashboard.Controllers
                     client.BaseAddress = new Uri("https://localhost:44354/");
                     var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
 
-                    using (HttpResponseMessage response = await client.PutAsync("api/User/Updateorder", content))
+                    using (HttpResponseMessage response = await client.PatchAsync("api/User/Updateorder", content))
                     {
                         var responseContent = response.Content.ReadAsStringAsync().Result;
                         response.EnsureSuccessStatusCode();
-                        return Redirect("/AdminDashboard/Shipping");
+                        return Redirect("/AdminDashboard/Shipping/1");
 
                     }
 
@@ -1123,13 +1122,59 @@ namespace AdminDashboard.Controllers
 
 
 
-
             }
             else
             {
                 return Redirect("/AdminDashboard/Login");
             }
         }
+        //[HttpPost]
+        //public async Task<IActionResult> LocationStatus(Order order)
+        //{
+        //    if (HttpContext.Request.Cookies["UserToken"] != "")
+        //    {
+        //        if (ModelState.IsValid)
+        //        {
+
+        //            var client = new HttpClient();
+        //            client.DefaultRequestHeaders.Accept.Clear();
+        //            client.Timeout = TimeSpan.FromSeconds(60);
+        //            client.BaseAddress = new Uri("https://localhost:44354/");
+        //            var content = new StringContent(JsonConvert.SerializeObject(order), Encoding.UTF8, "application/json");
+
+        //            using (HttpResponseMessage response = await client.PutAsync("api/User/Updateorder/", content))
+        //            {
+        //                var responseContent = response.Content.ReadAsStringAsync().Result;
+        //                response.EnsureSuccessStatusCode();
+
+        //                try
+        //                {
+        //                    // Handle success
+        //                }
+        //                catch (HttpRequestException)
+        //                {
+                            
+        //                }
+        //                return Redirect("/AdminDashboard/Shipping");
+
+        //            }
+
+
+        //        }
+        //        else
+        //        {
+        //            return View();
+        //        }
+
+
+
+
+        //    }
+        //    else
+        //    {
+        //        return Redirect("/AdminDashboard/Login");
+        //    }
+        //}
         [HttpGet]
         public IActionResult MyStoreDetiles(int id)
         {

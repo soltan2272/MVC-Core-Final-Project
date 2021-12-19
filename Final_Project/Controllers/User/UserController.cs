@@ -170,14 +170,15 @@ namespace Final_Project.Controllers
             return result;
         }
 
-        [HttpPut("Updateorder")]
+        [HttpPatch("Updateorder")]
         public ResultViewModel Updateorder(Order order)
         {
 
             result.Message = " order";
-            result.Data = order;
-            OrderRepo.Update(order);
+            UnitOfWork.context().Orders.Update(order);
             UnitOfWork.Save();
+            result.Data = order;
+
             return result;
         }
       
