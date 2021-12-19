@@ -1,0 +1,42 @@
+﻿@using Models;
+@model IList<Product>;
+@{
+    ViewData["Title"] = "productMyStore";
+}
+
+<h2>productMyStore</h2>
+
+div class="all-content-wrapper">
+
+<div class="product-status mg-b-30">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                    <h4>Products List</h4>
+                  
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Image</th>
+                        </tr>
+
+                        @foreach (Product product in Model)
+                        {
+                    <tr>
+                        <td>@product.ID</td>
+                        <td>@product.Name</td>
+                        <td>@product.Price LE</td>
+                        <td>@product.Quantity </td>
+                        <td>@product.Rate</td>
+                        <td>@product.Product_Images</td>
+                        @*<td>@product.Image</td>*@
+                    </tr>
+                        }
+                    </table>
+</div>
+</div></div></div></div>

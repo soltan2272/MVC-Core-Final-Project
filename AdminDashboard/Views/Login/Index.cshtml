@@ -1,0 +1,103 @@
+﻿@using ViewModels;
+@model LoginModel;
+﻿
+<html class="no-js" lang="en">
+
+<head>
+   
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/67.jpg);
+            height: 100vh;
+            background-size: cover;
+            background-position: center
+        }
+
+        .login_page {
+            width: 360px;
+            padding: 10% 0 0;
+            margin: auto
+        }
+
+        .form {
+            position: relative;
+            z-index: 1;
+            background: rgba(7, 40, 195, 0.8);
+            max-width: 360px;
+            margin: 0 auto 100px;
+            padding: 45px;
+            text-align: center;
+            border-radius: 6px
+        }
+
+            .form input {
+                font-family: "Roboto", Sans-serif;
+                outline: 1;
+                width: 100%;
+                border: 0;
+                margin: 0 0 15px;
+                padding: 15px;
+                box-sizing: border-box;
+                font-size: 14px;
+                border-radius: 2px
+            }
+
+            .form button {
+                font-family: "Roboto", Sans-serif;
+                text-transform: uppercase;
+                outline: 0;
+                background: #4CAF50;
+                width: 100%;
+                border: 2;
+                border-radius: 4px;
+                padding: 15px;
+                color: #fff;
+                font-size: 14px;
+                cursor: pointer
+            }
+
+                .form button:hover,
+                .form button:active {
+                    background: #43A047
+                }
+
+            .form .message {
+                margin: 15px 0 0;
+                color: aliceblue;
+                font-size: 16px
+            }
+
+                .form .message a {
+                    color: #4CAF50;
+                    text-decoration: none
+                }
+
+            .form .register_form {
+                display: none
+            }
+    </style>
+   
+</head>
+
+<body>
+    <div class="col-md-12">
+        <div class="login_page">
+            <div class="form">
+                <form class="register_form">
+                    <input type="text" placeholder="username" /> <input type="password" placeholder="password" /> <input type="email" placeholder="email" />
+                    <div style='margin-bottom: 9px;'> <textarea id='bio_id' placeholder="Tell us about yourself" rows=13 cols=35 maxlength="500"></textarea> </div> <button>Create</button>
+                    <p class="message">Already Registered? <a href="#">Login</a></p>
+                </form>
+                <form class="login_form">
+                    <input type="text" placeholder="Username"> <input type="password" placeholder="password"> <button>login</button>
+                    <p class="message">Not Registered? <a href="#">Register Now!</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+

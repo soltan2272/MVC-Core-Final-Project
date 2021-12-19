@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "LocationStatus";
+}
+@using Models;
+@model Order;
+<div class="all-content-wrapper">
+    <br>
+    <br>
+    @using (Html.BeginForm("LocationStatus", "AdminDashboard", "post"))
+    {
+<div class="review-content-section">
+    <div class="input-group mg-b-pro-edt">
+
+        @Html.LabelFor(o => o.Order_Date, new { @class = "input-group-addon" })
+        @Html.TextBoxFor(o => o.Order_Date, new { @class = "text-dark", @readonly = "readonly" })
+    </div>
+    <div class="input-group mg-b-pro-edt">
+        @Html.LabelFor(o => o.User.Full_Name, new { @class = "input-group-addon" })
+        @Html.TextBoxFor(o => o.User.Full_Name, new { @class = "text-dark", @readonly = "readonly" })
+    </div>
+    <div class="input-group mg-b-pro-edt">
+
+        @Html.LabelFor(o => o.User.Phone, new { @class = "input-group-addon" })
+        @Html.TextBoxFor(o => o.User.Phone, new { @class = "text-dark", @readonly = "readonly" })
+    </div>
+    <div class="input-group mg-b-pro-edt">
+
+        @Html.LabelFor(o => o.Delivery_Status, new { @class = "input-group-addon" })
+        @Html.DropDownListFor(x => x.Delivery_Status, SelectListItemHelper.GetDelivery_StatusList(), new { @class = "form-control" })
+    </div>
+    <div class="input-group mg-b-pro-edt">
+
+        @Html.LabelFor(o => o.Governmate, new { @class = "input-group-addon" })
+        @Html.DropDownListFor(x => x.Governmate, SelectListItemHelper.GetGovernmateList(), new { @class = "form-control" })
+    </div>
+    <input type="submit" value="Save Order State" class="btn btn-success" />
+
+</div>
+    }
+</div>
+
+
+

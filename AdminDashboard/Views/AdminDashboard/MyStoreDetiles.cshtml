@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewData["Title"] = "Detiles";
+
+}
+@using Models;
+@model Product;
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+<div class="all-content-wrapper">
+
+    <!-- Single pro tab start-->
+    <div class="single-product-tab-area mg-t-0 mg-b-30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-product-pr">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div id="myTabContent1" class="tab-content">
+                                    <div class="product-tab-list tab-pane fade active in" id="single-tab1">
+                                        <img src="@Model.Product_Images[0].Image_URL" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center mb-3"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1"><a href="javascript:history.back()">Back</a></span> </div>
+                            </div>
+                            <br>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                <div class="single-product-details res-pro-tb">
+                                    <h1>@Model.Name</h1>
+                                    @switch (Model.Rate)
+                                    {
+                                        case 1:
+                                            <span id="s1" class="s1 fa fa-star checked"></span>
+                                            <span id="s2" class="s2 fa fa-star "></span>
+                                            <span id="s3" class="s3 fa fa-star "></span>
+                                            <span id="s4" class="s4 fa fa-star"></span>
+                                            <span id="s5" class="s5 fa fa-star"></span>
+
+                                            break;
+
+                                        case 2:
+                                            <span id="s1" class="s1 fa fa-star checked"></span>
+                                            <span id="s2" class="s2 fa fa-star checked"></span>
+                                            <span id="s3" class="s3 fa fa-star "></span>
+                                            <span id="s4" class="s4 fa fa-star"></span>
+                                            <span id="s5" class="s5 fa fa-star"></span>
+
+                                            break;
+
+                                        case 3:
+                                            <span id="s1" class="s1 fa fa-star checked"></span>
+                                            <span id="s2" class="s2 fa fa-star checked"></span>
+                                            <span id="s3" class="s3 fa fa-star checked"></span>
+                                            <span id="s4" class="s4 fa fa-star"></span>
+                                            <span id="s5" class="s5 fa fa-star"></span>
+
+                                            break;
+                                        case 4:
+                                            <span id="s1" class="s1 fa fa-star checked"></span>
+                                            <span id="s2" class="s2 fa fa-star checked"></span>
+                                            <span id="s3" class="s3 fa fa-star checked"></span>
+                                            <span id="s4" class="s4 fa fa-star checked"></span>
+                                            <span id="s5" class="s5 fa fa-star"></span>
+
+                                            break;
+
+                                        case 5:
+                                            <span id="s1" class="s1 fa fa-star checked"></span>
+                                            <span id="s2" class="s2 fa fa-star checked"></span>
+                                            <span id="s3" class="s3 fa fa-star checked"></span>
+                                            <span id="s4" class="s4 fa fa-star checked"></span>
+                                            <span id="s5" class="s5 fa fa-star checked"></span>
+
+                                            break;
+
+
+                                    }
+                                    <div class="single-pro-price">
+                                        <h5 style="color:white">price</h5>
+
+                                        <span class="single-regular">@Model.Price LE</span><span class="single-old"><del></del></span>
+                                    </div>
+                                    <div class="single-pro-price">
+                                        <h5 style="color:white">Quantity</h5>
+
+                                        <span class="single-regular">@Model.Quantity</span><span class="single-old"><del></del></span>
+                                    </div>
+                                    <div class="clear"></div>
+
+
+                                </div>
+                                <br>
+                                <div class="single-pro-cn">
+                                    <h3>Description</h3>
+                                    <p>
+                                        @Model.Description
+                                    </p>
+
+                                    <div class="product-tab-list tab-pane fade active in" id="single-tab1">
+                                        @foreach (var image in Model.Product_Images)
+                                        {
+                                            <img width="30%" src="@image.Image_URL" alt="" />
+                                        }
+                                    </div>
+                                    <br>
+                                </div>
+
+                                <div style="float:right">
+                                    @Html.ActionLink("Delete", "MyStoreDelete", new { id = Model.ID }, new { @class = "btn btn-danger text-uppercase mr-2 px-4" })
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

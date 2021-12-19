@@ -1,0 +1,53 @@
+﻿
+@using Models;
+@model Product
+
+@{
+    ViewData["Title"] = "editProduct";
+}
+<h2>Edit Product</h2>
+
+
+<div class="container-fluid" style="margin-left:250px">
+    <form asp-action="editProduct" role="form">
+        @*<div class="mb-3">
+                <label class="form-label">ID</label>
+                <input type="text" asp-for="ID" class="form-control" placeholder="Enter Store ID">
+            </div>*@
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="Enter Product Name">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Quantity</label>
+            <input type="text" asp-for="Quantity" class="form-control" placeholder="Enter Product Quantity">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Price</label>
+            <input type="text" asp-for="Price" class="form-control" placeholder="Enter Product Price">
+        </div>
+        @*<div class="mb-3">
+                <label class="form-label">Image</label>
+                <input type="text" asp-for="Imag" class="form-control" placeholder="Enter Product Image">
+            </div>*@
+        <div class="mb-3">
+            <label class="form-label">Rate</label>
+            <input type="text" asp-for="Rate" class="form-control" placeholder="Enter Product Rate">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <input type="text" asp-for="Description" class="form-control" placeholder="Enter Product Description">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">CurrentCategoryID</label>
+            <input type="text" asp-for="CurrentCategoryID" class="form-control" placeholder="Enter Product CurrentCategoryID">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CurrentSupplierID</label>
+            <input type="text" asp-for="CurrentSupplierID" value="2" class="form-control" placeholder="Enter Product CurrentSupplierID">
+        </div>
+
+        <button type="submit" class="btn btn-light">Submit</button>
+    </form>
+

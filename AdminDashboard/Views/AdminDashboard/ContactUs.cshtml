@@ -1,0 +1,60 @@
+﻿@using Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ContactUs>;
+@{
+    ViewData["Title"] = "ContactUs";
+}
+<div class="all-content-wrapper">
+
+    <div class="mailbox-area mg-tb-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="hpanel mg-b-15">
+                        <div class="panel-body">
+                            @*<a herf="/AdminDashboard/contactus" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i> Refresh</a>*@
+                            <div class="table-responsive">
+                                <table class="table table-hover table-mailbox">
+                                    <tbody >
+                                        @foreach (ContactUs contact in Model)
+                                        {
+                                        <tr class="row"style="margin-top:2%">
+                                            
+                                            <td></td>
+
+                                            <td style="width:8%; font-weight:bold;"><a>@contact.Name</a></td>
+                                            <td></td>
+
+                                            <td style="width: 8%; font-weight: bold;"><a>@contact.Subject</a></td>
+                                            <td></td>
+                                            <td style="width:70%"><a>@contact.Message</a></td>
+
+                                            <td></td>
+                                            <td style="width:10%"><a href="mailto:@contact.Email">@contact.Email</a></td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="custom-pagination">
+
+                            <ul class="pagination">
+
+                                @for (int i = 1; i <= Model.PageCount; i++)
+                                {
+                                    <li class="@(i == Model.PageNumber ? "page-item active" : "page-item")">
+                                        <a class="page-link" href="@Url.Action("ContactUs", new { p = i })">@i</a>
+                                    </li>
+
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

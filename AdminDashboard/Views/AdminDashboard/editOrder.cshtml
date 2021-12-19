@@ -1,0 +1,35 @@
+﻿@model Models.Order
+@{
+    ViewData["Title"] = "editOrder";
+}
+
+<h1>editOrder</h1>>
+
+<form asp-action="editOrder" role="form" style="margin-left:300px">
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="text" asp-for="Quantity" class="form-control" id="Quantity" placeholder="sssssssssss">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Order_Date</label>
+        <input type="date" asp-for="Order_Date" class="form-control" id="Order_Date">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Delivery_Status</label>
+        <input type="text" asp-for="Delivery_Status" class="form-control" id="Delivery_Status">
+    </div>
+    @*<div class="mb-3">
+        <label for="CurrentCourierID" class="form-label">CurrentCourierID</label>
+        <input type="number" asp-for="CurrentCourierID" class="form-control" id="CurrentCourierID">
+    </div>
+    <div class="mb-3">
+        <label for="CurrentPaymentID" class="form-label">CurrentPaymentID</label>
+        <input type="number" asp-for="CurrentPaymentID" class="form-control" id="CurrentPaymentID">
+    </div>*@
+    <div class="mb-3">
+        <label for=" CurrentUserID" class="form-label"> CurrentUserID</label>
+        <input type="number" asp-for="CurrentUserID" class="form-control" id=" CurrentUserID">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    @Html.ActionLink("Send", "editOrder", new {aa =1 } , new { @class = "btn btn-danger" })
+</form>

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "AddAdmin";
+}
+@using ViewModels;
+@model SignUpModel;
+
+<div class="all-content-wrapper">
+    @using (Html.BeginForm("AddAdmin", "AdminDashboard"))
+    {
+    <div class="review-content-section">
+        <div class="input-group mg-b-pro-edt">
+            @Html.LabelFor(c => c.Full_Name, new { @class = "input-group-addon" })
+            @Html.TextBoxFor(c => c.Full_Name, new { @class = "form-control", style = "background-color:white;color:black;" })
+            @Html.ValidationMessageFor(model => model.Full_Name, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="input-group mg-b-pro-edt">
+            @Html.LabelFor(c => c.Email, new { @class = "input-group-addon" })
+            @Html.TextBoxFor(c => c.Email, new { @class = "form-control", style = "background-color:white;color:black;" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="input-group mg-b-pro-edt">
+            @Html.LabelFor(c => c.Password, new { @class = "input-group-addon" })
+            @Html.PasswordFor(c => c.Password, new { @class = "form-control", style = "background-color:white;color:black;" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="input-group mg-b-pro-edt">
+            @Html.LabelFor(c => c.Adrress, new { @class = "input-group-addon" })
+            @Html.TextBoxFor(c => c.Adrress, new { @class = "form-control", style = "background-color:white;color:black;" })
+            @Html.ValidationMessageFor(model => model.Adrress, "", new { @class = "text-danger" })
+
+        </div>
+        <input type="submit" value="Add Category" class="btn btn-success" />
+
+    </div>
+    }
+</div>
