@@ -467,9 +467,9 @@ namespace AdminDashboard.Controllers
                 using (HttpResponseMessage response = await client.PostAsync("api/Product/addProduct", content))
                 {
                     var responseContent = response.Content.ReadAsStringAsync().Result;
-                    response.EnsureSuccessStatusCode();
+                 //   response.EnsureSuccessStatusCode();
 
-                    return Redirect("/AdminDashboard/productMyStore");
+                    return Redirect("/AdminDashboard/productMyStore/1");
                 }
             }
             else
