@@ -31,7 +31,21 @@ namespace Final_Project.Controllers
         [HttpGet("Name/{Name}")]
         public ResultViewModel Name(string Name)
         {
-            var res = ProductRepo.Get().Where(p => p.Name.Contains(Name)).Select(p => p.ToViewModel());
+            var res = result.Data = Context.Products.Where(p => p.Name.Contains(Name)).Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.category,
+                p.Description,
+                p.productFeedbacks,
+                p.Rate,
+                p.supplier,
+                p.Product_Images,
+                p.Quantity,
+                p.productOrders,
+            });
             if (res != null)
             {
                 result.Message = "All Products have Name: " + Name;
@@ -48,7 +62,21 @@ namespace Final_Project.Controllers
         [HttpGet("PriceLessThan/{price}")]
         public ResultViewModel PriceLessThan(int price)
         {
-            var res = ProductRepo.Get().Where(p => p.Price<=price).Select(p => p.ToViewModel());
+            var res = result.Data = Context.Products.Where(p => p.Price <= price).Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.category,
+                p.Description,
+                p.productFeedbacks,
+                p.Rate,
+                p.supplier,
+                p.Product_Images,
+                p.Quantity,
+                p.productOrders,
+            });
             if (res != null)
             {
                 result.Message = "Products Less Than " + price;
@@ -63,9 +91,23 @@ namespace Final_Project.Controllers
         }
 
         [HttpGet("Pricerange/{price}/{price2}")]
-        public ResultViewModel PriceLessThan(int price , int price2 )
+        public ResultViewModel PriceLessThan(int price, int price2)
         {
-            var res = ProductRepo.Get().Where(p => p.Price >= price&&p.Price<=price2).Select(p => p.ToViewModel());
+            var res = result.Data = Context.Products.Where(p => p.Price >= price && p.Price <= price2).Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.category,
+                p.Description,
+                p.productFeedbacks,
+                p.Rate,
+                p.supplier,
+                p.Product_Images,
+                p.Quantity,
+                p.productOrders,
+            });
             if (res != null)
             {
                 result.Message = "Products Less Than " + price;
@@ -82,7 +124,21 @@ namespace Final_Project.Controllers
         [HttpGet("PriceMoreThan/{price}")]
         public ResultViewModel PriceMoreThan(int price)
         {
-           var res = ProductRepo.Get().Where(p => p.Price >= price).Select(p => p.ToViewModel());
+            var res = result.Data = Context.Products.Where(p => p.Price >= price).Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.category,
+                p.Description,
+                p.productFeedbacks,
+                p.Rate,
+                p.supplier,
+                p.Product_Images,
+                p.Quantity,
+                p.productOrders,
+            });
 
             if (res != null)
             {
@@ -100,10 +156,26 @@ namespace Final_Project.Controllers
         [HttpGet("Rate/{Rate}")]
         public ResultViewModel Rate(int Rate)
         {
-            if(Rate<=5&& Rate >= 0)
+            var res = result.Data = Context.Products.Where(p => p.Rate <= Rate).Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.category,
+                p.Description,
+                p.productFeedbacks,
+                p.Rate,
+                p.supplier,
+                p.Product_Images,
+                p.Quantity,
+                p.productOrders,
+            });
+
+            if (Rate <= 5 && Rate >= 0)
             {
                 result.Message = "Products Where Rate = " + Rate;
-                result.Data = ProductRepo.Get().Where(p => p.Rate <= Rate).Select(p => p.ToViewModel());
+                result.Data = res;
 
             }
             else
@@ -118,7 +190,7 @@ namespace Final_Project.Controllers
         [HttpGet("Category/{Category}")]
         public ResultViewModel Category(int Category)
         {
-            var res = result.Data =UnitOfWork.context().Products.Where(p => p.CurrentCategoryID == Category).Select(p => new
+            var res = result.Data = UnitOfWork.context().Products.Where(p => p.CurrentCategoryID == Category).Select(p => new
             {
                 p.ID,
                 p.Name,
@@ -146,9 +218,24 @@ namespace Final_Project.Controllers
             return result;
         }
         [HttpGet("Category/{Category}/{search}")]
-        public ResultViewModel CategorySearch(int Category,string search)
+        public ResultViewModel CategorySearch(int Category, string search)
         {
-            var res = ProductRepo.Get().Where(p => p.CurrentCategoryID == Category).Select(p => p.ToViewModel()).Where(pro=>pro.Name.Contains(search));
+            var res = result.Data = Context.Products.Where(p => p.CurrentCategoryID == Category).Select(p => new
+            {
+                p.ID,
+                p.Name,
+                p.Price,
+                p.ProductOffers,
+                p.category,
+                p.Description,
+                p.productFeedbacks,
+                p.Rate,
+                p.supplier,
+                p.Product_Images,
+                p.Quantity,
+                p.productOrders,
+            });
+
             if (res != null)
             {
                 result.Message = "Products By Category Name ";
@@ -193,6 +280,7 @@ namespace Final_Project.Controllers
             }
             return result;
         }
+
         [HttpGet("TopRate")]
         public ResultViewModel TopRate()
         {
