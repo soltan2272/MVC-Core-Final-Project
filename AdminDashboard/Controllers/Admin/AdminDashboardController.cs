@@ -644,7 +644,7 @@ namespace AdminDashboard.Controllers
             HttpContext.Response.Cookies.Append("UserToken", "");
             HttpContext.Response.Cookies.Append("UserID", "");
             HttpContext.Response.Cookies.Append("UserName", "");
-            return Redirect("/Login");
+            return Redirect("/AdminDashboard/Login");
         }
 
         public IActionResult Stores(int? p=1)
