@@ -49,7 +49,7 @@ namespace Final_Project.Controllers
         {
 
             result.Message = "All Products";
-            result.Data = Context.Products.Select(p =>new { 
+            result.Data = UnitOfWork.context().Products.Select(p =>new { 
             p.ID,
             p.Name,
             p.Price,
@@ -67,7 +67,7 @@ namespace Final_Project.Controllers
         public ResultViewModel GetforAdmin()
         {
             result.Message = "All Products";
-            result.Data = Context.Products.Select(p => new
+            result.Data = UnitOfWork.context().Products.Select(p => new
             {
                 p.ID,
                 p.Name,
@@ -90,7 +90,7 @@ namespace Final_Project.Controllers
         [HttpGet("UserProduct/{id}")]
         public ResultViewModel GetProductByID(int id)
         {
-            var product = Context.Products.Where(pro => pro.ID == id).Select(p => new {
+            var product = UnitOfWork.context().Products.Where(pro => pro.ID == id).Select(p => new {
                 p.ID,
                 p.Name,
                 p.Price,
@@ -123,7 +123,7 @@ namespace Final_Project.Controllers
         [HttpGet("AdminProduct/{id}")]
         public ResultViewModel GetProductByIDForAdmin(int id)
         {
-            var product = Context.Products.Where(pro=>pro.ID==id).Select(p => new {
+            var product = UnitOfWork.context().Products.Where(pro=>pro.ID==id).Select(p => new {
                 p.ID,
                 p.Name,
                 p.Price,
@@ -165,7 +165,7 @@ namespace Final_Project.Controllers
 
 
         [HttpPost("addProduct")]
-        public ResultViewModel addProduct(InsertProductViewModel product)
+        public async Task < ResultViewModel> addProduct(InsertProductViewModel product)
         {
 
             var res = product;
@@ -186,12 +186,9 @@ namespace Final_Project.Controllers
 
            
             ProductRepo.Add(x);
-            UnitOfWork.Save();
+            await UnitOfWork.Save();
 
-           
-
-            UnitOfWork.Save();
-            Product p = ProductRepo.Get().OrderByDescending(i => i.ID).Take(1).FirstOrDefault();
+            Product p =  ProductRepo.Get().OrderByDescending(i => i.ID).Take(1).FirstOrDefault();
             int z = p.ID;
 
             addimages(z,product);
@@ -212,6 +209,35 @@ namespace Final_Project.Controllers
 
             UnitOfWork.Save();
             result.Data = imgPathes;
+            return result;
+        }
+        [HttpPut("UpdateProduct")]
+        public async Task<ResultViewModel> UpdateProduct(InsertProductViewModel product)
+        {
+
+            var res = product;
+            result.Message = "Add Product";
+
+            var x = ToProductExtensions.ToProductModel(product);
+
+            Category Cat = CategoryRepo.Get().Where(c => c.ID == product.CurrentCategoryID).FirstOrDefault();
+            if (Cat != null)
+            {
+                x.category = Cat;
+            }
+            
+            ProductRepo.Update(x);
+            await UnitOfWork.Save();
+            if (product.imgspathes != null)
+            {
+                Product p = ProductRepo.Get().OrderByDescending(i => i.ID).Take(1).FirstOrDefault();
+                int z = p.ID;
+
+                addimages(z, product);
+
+                result.Data = product;
+            }
+           
             return result;
         }
 
@@ -432,9 +458,10 @@ namespace Final_Project.Controllers
                 for(int i = 0; i < image.Length; i++)
                 {
                     image[i].product = pro;
+                    UnitOfWork.context().Images.Add(image[i]);
+                    pro.Product_Images.Add(image[i]);
 
                 }
-                UnitOfWork.context().Images.AddRange(image);
                 UnitOfWork.Save();
                 result.Data = image;
 
@@ -468,7 +495,7 @@ namespace Final_Project.Controllers
 
             ProductRepo.Add(product);
             UnitOfWork.Save();
-            result.Data = product;
+            result.Data = UnitOfWork.context().Products.OrderByDescending(o=>o.ID).FirstOrDefaultAsync();
 
             return result;
         }
