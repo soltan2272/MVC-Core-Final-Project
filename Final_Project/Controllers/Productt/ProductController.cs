@@ -216,7 +216,7 @@ namespace Final_Project.Controllers
         {
 
             var res = product;
-            result.Message = "Add Product";
+            result.Message = "Edit Product";
 
             var x = ToProductExtensions.ToProductModel(product);
 
