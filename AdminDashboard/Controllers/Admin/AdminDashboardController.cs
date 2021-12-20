@@ -1,4 +1,4 @@
-using AdminDashboard.Models;
+﻿using AdminDashboard.Models;
 using Final_Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
@@ -20,6 +20,10 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Models.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using System.Web;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AdminDashboard.Controllers
 {
@@ -344,10 +348,10 @@ namespace AdminDashboard.Controllers
                     tabel.Wait();
                     var ser = tabel.Result.Data;
                     string jsonString = JsonConvert.SerializeObject(ser);
-
-
+               
                     products = JsonConvert.DeserializeObject<IList<Product>>(jsonString);
                 }
+
                 return View(products.ToPagedList((p ?? 1), 6));
             }
 
@@ -409,10 +413,39 @@ namespace AdminDashboard.Controllers
 
   
         [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product)
+        [Obsolete]
+        public async Task<IActionResult> AddProduct(InsertProductViewModel product)
         {
             if (HttpContext.Request.Cookies["UserToken"] != "")
             {
+                var myAccount = new Account { ApiKey = "325458487894941", ApiSecret = "HF8vRpQ2VL-LuPb6lHdXKYAaZNg", Cloud = "dppeduocd" };
+                Cloudinary _cloudinary = new Cloudinary(myAccount);
+                for (var i = 0; i < product.imgspathes.Length; i++)
+                {
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        //File = new FileDescription(@"wwwroot\img\zzz.png")
+                        File = new FileDescription(@"wwwroot\img\uploads\" + product.imgspathes[i])
+                    };
+                    var uploadResult = _cloudinary.Upload(uploadParams);
+
+                    string img = uploadResult.SecureUri.AbsoluteUri;
+                    product.imgspathes[i] = img;
+                }
+                //var myAccount = new Account { ApiKey = "325458487894941", ApiSecret = "HF8vRpQ2VL-LuPb6lHdXKYAaZNg", Cloud = "dppeduocd" };
+                //Cloudinary _cloudinary = new Cloudinary(myAccount);
+
+                //var uploadParams = new ImageUploadParams()
+                //{
+                //    //File = new FileDescription(@"wwwroot\img\zzz.png")
+                //    File = new FileDescription(@"wwwroot\img\uploads\" + product.imgspathes[0])
+                //};
+                //var uploadResult = _cloudinary.Upload(uploadParams);
+
+                //string img = uploadResult.SecureUri.AbsoluteUri;
+
+                var sallerid = HttpContext.Request.Cookies["UserID"];
+                var sid = int.Parse(sallerid);
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.Timeout = TimeSpan.FromSeconds(60);
@@ -423,11 +456,11 @@ namespace AdminDashboard.Controllers
                     Name = product.Name,
                     Price = product.Price,
                     Quantity = product.Quantity,
-                    //Image = product.Image,
                     Rate = product.Rate,
+                    imgspathes = product.imgspathes,
                     Description = product.Description,
-                    CurrentSupplierID = product.CurrentSupplierID,
-                    CurrentCategoryID = product.CurrentCategoryID
+                    CurrentSupplierID = sid,
+                    CurrentCategoryID = Request.Form["catID"].ToString() //product. .CurrentCategoryID
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
@@ -447,6 +480,22 @@ namespace AdminDashboard.Controllers
 
         public IActionResult AddProduct()
         {
+            IEnumerable<Category> cattt = null;
+            HttpClient http = new HttpClient();
+            http.BaseAddress = new Uri(Global.API);
+            var catList = http.GetAsync("product/category");
+            catList.Wait();
+            var resltcat = catList.Result;
+            if (resltcat.IsSuccessStatusCode)
+            {
+                var tabel2 = resltcat.Content.ReadAsAsync<ResultViewModel>();
+                tabel2.Wait();
+                var cat = tabel2.Result.Data;
+                string jsonString = JsonConvert.SerializeObject(cat);
+
+                cattt = JsonConvert.DeserializeObject<IList<Category>>(jsonString);
+                ViewBag.categories = new SelectList(cattt, "ID", "Name");
+            }
             return View();
         }
 
@@ -720,10 +769,11 @@ namespace AdminDashboard.Controllers
             if (HttpContext.Request.Cookies["UserToken"] != "")
             {
                 var sallerid = HttpContext.Request.Cookies["UserID"];
+                var sid = int.Parse(sallerid);
                 IEnumerable<Product> products = null;
                 HttpClient http = new HttpClient();
                 http.BaseAddress = new Uri(Global.API);
-                var productcontroller = http.GetAsync("Search/Seller/"+sallerid);
+                var productcontroller = http.GetAsync("Search/Seller/"+sid);
                 productcontroller.Wait();
                 var resltproduct = productcontroller.Result;
                 if (resltproduct.IsSuccessStatusCode)

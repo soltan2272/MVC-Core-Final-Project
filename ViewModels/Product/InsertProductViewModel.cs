@@ -19,6 +19,7 @@ namespace ViewModels
         public int CurrentCategoryID { get; set; }
         public int Quantity { get; set; }
 
+        public string[] imgspathes { get; set; }
     }
     public static class InsertProductViewModelExtensions
     {
