@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(Project_Context))]
-    [Migration("20211218211507_SeedRoles")]
+    [Migration("20211220080809_SeedRoles")]
     partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -273,7 +273,9 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("Order_ID", "Product_ID");
 
@@ -460,13 +462,15 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("Feedback_ID", "Product_ID");
 
                     b.HasIndex("Product_ID");
 
-                    b.ToTable("ProductFeedbacks");
+                    b.ToTable("ProductFeedback");
                 });
 
             modelBuilder.Entity("Models.ProductOffer", b =>
@@ -478,13 +482,15 @@ namespace Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("Offer_ID", "Product_ID");
 
                     b.HasIndex("Product_ID");
 
-                    b.ToTable("productOffers");
+                    b.ToTable("ProductOffer");
                 });
 
             modelBuilder.Entity("Models.User", b =>

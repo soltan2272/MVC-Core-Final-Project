@@ -61,6 +61,9 @@ namespace Data
             modelBuilder.ApplyConfiguration(new PaymentEnityConfiguration());
             modelBuilder.ApplyConfiguration(new FeedbackEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ImageEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new prodFeedbactConfig());
+            modelBuilder.ApplyConfiguration(new ProdOfferConfig());
+            modelBuilder.ApplyConfiguration(new ProdOrderConfig());
             //  modelBuilder.ApplyConfiguration(new AdminEntityConfiguration());
             // modelBuilder.ApplyConfiguration(new ContactEntityConfiguration());
 

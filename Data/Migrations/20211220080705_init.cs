@@ -361,24 +361,25 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductFeedbacks",
+                name: "ProductFeedback",
                 columns: table => new
                 {
                     Product_ID = table.Column<int>(type: "int", nullable: false),
                     Feedback_ID = table.Column<int>(type: "int", nullable: false),
                     ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductFeedbacks", x => new { x.Feedback_ID, x.Product_ID });
+                    table.PrimaryKey("PK_ProductFeedback", x => new { x.Feedback_ID, x.Product_ID });
                     table.ForeignKey(
-                        name: "FK_ProductFeedbacks_Feedback_Feedback_ID",
+                        name: "FK_ProductFeedback_Feedback_Feedback_ID",
                         column: x => x.Feedback_ID,
                         principalTable: "Feedback",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductFeedbacks_Product_Product_ID",
+                        name: "FK_ProductFeedback_Product_Product_ID",
                         column: x => x.Product_ID,
                         principalTable: "Product",
                         principalColumn: "ID",
@@ -386,24 +387,25 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "productOffers",
+                name: "ProductOffer",
                 columns: table => new
                 {
                     Product_ID = table.Column<int>(type: "int", nullable: false),
                     Offer_ID = table.Column<int>(type: "int", nullable: false),
                     ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productOffers", x => new { x.Offer_ID, x.Product_ID });
+                    table.PrimaryKey("PK_ProductOffer", x => new { x.Offer_ID, x.Product_ID });
                     table.ForeignKey(
-                        name: "FK_productOffers_Offer_Offer_ID",
+                        name: "FK_ProductOffer_Offer_Offer_ID",
                         column: x => x.Offer_ID,
                         principalTable: "Offer",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_productOffers_Product_Product_ID",
+                        name: "FK_ProductOffer_Product_Product_ID",
                         column: x => x.Product_ID,
                         principalTable: "Product",
                         principalColumn: "ID",
@@ -417,6 +419,7 @@ namespace Data.Migrations
                     Product_ID = table.Column<int>(type: "int", nullable: false),
                     Order_ID = table.Column<int>(type: "int", nullable: false),
                     ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -505,13 +508,13 @@ namespace Data.Migrations
                 column: "CurrentSupplierID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductFeedbacks_Product_ID",
-                table: "ProductFeedbacks",
+                name: "IX_ProductFeedback_Product_ID",
+                table: "ProductFeedback",
                 column: "Product_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_productOffers_Product_ID",
-                table: "productOffers",
+                name: "IX_ProductOffer_Product_ID",
+                table: "ProductOffer",
                 column: "Product_ID");
 
             migrationBuilder.CreateIndex(
@@ -553,10 +556,10 @@ namespace Data.Migrations
                 name: "Payment");
 
             migrationBuilder.DropTable(
-                name: "ProductFeedbacks");
+                name: "ProductFeedback");
 
             migrationBuilder.DropTable(
-                name: "productOffers");
+                name: "ProductOffer");
 
             migrationBuilder.DropTable(
                 name: "ProductOrder");
