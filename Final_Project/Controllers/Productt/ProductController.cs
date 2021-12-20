@@ -383,9 +383,10 @@ namespace Final_Project.Controllers
                 for(int i = 0; i < image.Length; i++)
                 {
                     image[i].product = pro;
+                    UnitOfWork.context().Images.Add(image[i]);
+                    pro.Product_Images.Add(image[i]);
 
                 }
-                UnitOfWork.context().Images.AddRange(image);
                 UnitOfWork.Save();
                 result.Data = image;
 
@@ -419,7 +420,7 @@ namespace Final_Project.Controllers
 
             ProductRepo.Add(product);
             UnitOfWork.Save();
-            result.Data = product;
+            result.Data = UnitOfWork.context().Products.OrderByDescending(o=>o.ID).FirstOrDefaultAsync();
 
             return result;
         }
