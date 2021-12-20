@@ -291,7 +291,7 @@ namespace Final_Project.Controllers
             //    result.Message = "Not Found Product";
             //}
             var product = ProductRepo.GetByID(id);
-            product.ID = pro.ID;
+            product.ID = id;
             product.Name = pro.Name;
             product.Quantity = pro.Quantity;
          
