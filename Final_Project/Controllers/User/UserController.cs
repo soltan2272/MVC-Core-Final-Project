@@ -184,16 +184,49 @@ namespace Final_Project.Controllers
       
 
         [HttpPost("addfeedback")]
-        public ResultViewModel AddFeedback(Feedback feedback)
+        public async Task< ResultViewModel> AddFeedback(Feedback feedback,int Pid)
         {
             result.Message = "Add User Feedback";
-
             FeedbackRepo.Add(feedback);
-            UnitOfWork.Save();
+            await UnitOfWork.Save();
+            Product pro = UnitOfWork.context().Products.Where(p => p.ID == Pid).FirstOrDefault();
+            if (pro != null)
+            {
+                int feedbackscount = FeedbackRepo.Get().Count();
+                ProductFeedback pf = new ProductFeedback();
+                pf.Feedback_ID = feedback.ID;
+                pf.Product_ID = Pid;
+                feedback.productFeedbacks.Add(pf);
+                pro.productFeedbacks.Add(pf);
+                setRate(Pid, feedback.Rate,feedbackscount);
+
+            }
+            
+
+
             result.Data = feedback;
 
             return result;
 
+        }
+        //[HttpGet("setRate/{id}/{rate}")]
+        public ResultViewModel setRate(int id, int rate,int count )
+        {
+            Product product = UnitOfWork.context().Products.Where(s => s.ID == id).FirstOrDefault();
+            if (product == null)
+            {
+                result.ISuccessed = false;
+                return result;
+            }
+            if (count != 0)
+            {
+                product.Rate = (product.Rate + rate) / count;
+                UnitOfWork.Save();
+                result.Message = "Set Rate";
+            }
+
+            result.Data = product.Rate;
+            return result;
         }
         [HttpPost("addContactUs")]
         public ResultViewModel AddContactUs(ContactUs contactUs)
@@ -226,8 +259,16 @@ namespace Final_Project.Controllers
             UnitOfWork.Save();
             return result;
         }
-       
-      
+        [HttpGet("getFeedbacks")]
+        public ResultViewModel getFeedbacks()
+        {
+            result.Message = "get Feedbacks";
+            result.Data = FeedbackRepo.Get();
+            UnitOfWork.Save();
+            return result;
+        }
+
+
 
         [HttpPost("addorder")]
         public ResultViewModel addorder(Order order)

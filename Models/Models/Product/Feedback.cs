@@ -9,7 +9,7 @@ namespace Models
     public class Feedback: BaseModel
     {
         public string Type { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now.Date;
         public string Subject { get; set; }
         public int CurrentUserID { get; set; }
 
