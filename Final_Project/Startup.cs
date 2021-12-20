@@ -37,7 +37,7 @@ namespace Final_Project
             services.AddControllers();
             services.Configure<MailSetting>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IEmailService, MailingService>();
-          services.AddDbContext<Project_Context>(options => {
+          services.AddDbContext<Project_Context>(options =>{
                 options.UseSqlServer(Configuration.GetConnectionString("KaraKeep"));
             });
             services.AddIdentity<User,Role>()

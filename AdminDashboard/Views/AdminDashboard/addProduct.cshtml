@@ -12,29 +12,29 @@
                 <input type="text" asp-for="ID" class="form-control" placeholder="Enter Store ID">
             </div>*@
         <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" asp-for="Name" class="form-control" placeholder="Enter Product Name">
+            <label class="form-label">Enter Product Name</label>
+            <input type="text" asp-for="Name" class="form-control" placeholder="">
         </div>
         <div class="mb-3">
-            <label class="form-label">Quantity</label>
-            <input type="text" asp-for="Quantity" class="form-control" placeholder="Enter Product Quantity">
+            <label class="form-label">Enter Product Quantity</label>
+            <input type="number" asp-for="Quantity" class="form-control" placeholder="">
         </div>
         <div class="mb-3">
-            <label class="form-label">Price</label>
-            <input type="text" asp-for="Price" class="form-control" placeholder="Enter Product Price">
+            <label class="form-label">Enter Product Price</label>
+            <input type="number" asp-for="Price" class="form-control" placeholder="">
         </div>
 
+        @*<div class="mb-3">
+                <label class="form-label">Rate</label>
+                <input type="text" asp-for="Rate" class="form-control" placeholder="Enter Product Rate">
+            </div>*@
         <div class="mb-3">
-            <label class="form-label">Rate</label>
-            <input type="text" asp-for="Rate" class="form-control" placeholder="Enter Product Rate">
+            <label class="form-label">Enter Product Description</label>
+            <input type="text" asp-for="Description" class="form-control" placeholder="">
         </div>
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <input type="text" asp-for="Description" class="form-control" placeholder="Enter Product Description">
-        </div>
-
-        @Html.DropDownList("catID", (IEnumerable<SelectListItem>)ViewBag.categories as SelectList, "Select Product Category", new {@class = "form-control" })
-
+        <br />
+        @Html.DropDownList("catID", (IEnumerable<SelectListItem>)ViewBag.categories as SelectList, "Select Product Category", new { @class = "form-control" })
+        <br />
         <div class="row">
             <div class="col-12">
                 <div class="product-info">
@@ -62,7 +62,11 @@
         <button type="submit" class="btn btn-light">Submit</button>
     </form>
 
-
+    <style>
+        label {
+            color: azure
+        }
+    </style>
 
 
 
