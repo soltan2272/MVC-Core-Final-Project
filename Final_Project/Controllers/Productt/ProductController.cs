@@ -25,7 +25,7 @@ namespace Final_Project.Controllers
         IGenericRepostory<Product> ProductRepo;
         IGenericRepostory<Category> CategoryRepo;
         IGenericRepostory<Store> StoreRepo;
-        //IGenericRepostory<Images> ImageRepo;
+        IGenericRepostory<Images> ImageRepo;
         IUnitOfWork UnitOfWork;
         IUserRepository UserRepository;
 
@@ -40,7 +40,7 @@ namespace Final_Project.Controllers
             ProductRepo = UnitOfWork.GetProductRepo();
             StoreRepo = UnitOfWork.GetStoreRepo();
             CategoryRepo = UnitOfWork.GetCategoryRepo();
-            //ImageRepo = UnitOfWork.GetImagesRepo();
+            ImageRepo = UnitOfWork.GetImagesRepo();
             UserRepository = userRepository;
         }
 
@@ -164,33 +164,82 @@ namespace Final_Project.Controllers
         }
 
 
-
-
         [HttpPost("addProduct")]
-        public ResultViewModel addProduct(Product product)
+        public ResultViewModel addProduct(InsertProductViewModel product)
         {
-            //StoreProduct sp = new StoreProduct();
+
             var res = product;
             result.Message = "Add Product";
 
-
+            var x = ToProductExtensions.ToProductModel(product);
+            
             Category Cat = CategoryRepo.Get().Where(c => c.ID == product.CurrentCategoryID).FirstOrDefault();
             if (Cat != null)
             {
-                product.category = Cat;
+                x.category = Cat;
             }
-            User saller =Context.Users.Where(s=>s.Id==product.CurrentSupplierID).FirstOrDefault();
-                if (saller != null)
+            User saller = Context.Users.Where(s => s.Id == product.CurrentSupplierID).FirstOrDefault();
+            if (saller != null)
             {
-                product.supplier = saller;
+                x.supplier = saller;
             }
 
-            ProductRepo.Add(product);
+           
+            ProductRepo.Add(x);
             UnitOfWork.Save();
-            result.Data = product;
 
+           
+
+            UnitOfWork.Save();
+            Product p = ProductRepo.Get().OrderByDescending(i => i.ID).Take(1).FirstOrDefault();
+            int z = p.ID;
+
+            addimages(z,product);
+
+            result.Data = product;
             return result;
         }
+
+        public ResultViewModel addimages(int id, InsertProductViewModel imgPathes)
+        {
+           
+
+            foreach (var i in imgPathes.imgspathes)
+            {
+               
+                ImageRepo.Add(new Images { CurrentProductID = id, Image_URL = i });
+            }
+
+            UnitOfWork.Save();
+            result.Data = imgPathes;
+            return result;
+        }
+
+        //[HttpPost("addProduct")]
+        //public ResultViewModel addProduct(Product product)
+        //{
+        //    //StoreProduct sp = new StoreProduct();
+        //    var res = product;
+        //    result.Message = "Add Product";
+
+
+        //    Category Cat = CategoryRepo.Get().Where(c => c.ID == product.CurrentCategoryID).FirstOrDefault();
+        //    if (Cat != null)
+        //    {
+        //        product.category = Cat;
+        //    }
+        //    User saller =Context.Users.Where(s=>s.Id==product.CurrentSupplierID).FirstOrDefault();
+        //        if (saller != null)
+        //    {
+        //        product.supplier = saller;
+        //    }
+
+        //    ProductRepo.Add(product);
+        //    UnitOfWork.Save();
+        //    result.Data = product;
+
+        //    return result;
+        //}
         //[HttpPost("addimages")]
         //public ResultViewModel addimages(Images image)
         //{
