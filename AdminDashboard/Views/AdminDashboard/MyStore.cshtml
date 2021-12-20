@@ -22,7 +22,7 @@
                             </div>
                         <table>
                             <tr>
-                                @*<th>Image</th>*@
+                                <th>Image</th>
                                 <th>Product Name</th>
                                 <th>Category</th>
                                 <th>Saller</th>
@@ -37,10 +37,10 @@
                             @foreach (Product product in Model)
                             {
                                 <tr>
-                                    @*<td>
+                                    <td>
                                         <img src="@product.Product_Images[0].Image_URL.ToString()" />
 
-                                    </t*@d>
+                                    </td>
 
                                     <td>@product.Name</td>
                                     <td>@product.category.Name</td>

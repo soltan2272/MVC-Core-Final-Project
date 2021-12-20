@@ -184,29 +184,34 @@ namespace Final_Project.Controllers
                 x.supplier = saller;
             }
 
+           
             ProductRepo.Add(x);
             UnitOfWork.Save();
 
-            addimages(product);
            
+
+            UnitOfWork.Save();
+            Product p = ProductRepo.Get().OrderByDescending(i => i.ID).Take(1).FirstOrDefault();
+            int z = p.ID;
+
+            addimages(z,product);
 
             result.Data = product;
             return result;
         }
 
-        public ResultViewModel addimages(InsertProductViewModel imadata)
+        public ResultViewModel addimages(int id, InsertProductViewModel imgPathes)
         {
-            Product p = ProductRepo.Get().OrderByDescending(i => i.ID).FirstOrDefault();
-            Images im = new Images();
+           
 
-            foreach (var i in imadata.imgspathes)
+            foreach (var i in imgPathes.imgspathes)
             {
                
-                ImageRepo.Add(new Images { CurrentProductID = p.ID , Image_URL = i });
+                ImageRepo.Add(new Images { CurrentProductID = id, Image_URL = i });
             }
 
             UnitOfWork.Save();
-            result.Data = imadata;
+            result.Data = imgPathes;
             return result;
         }
 
