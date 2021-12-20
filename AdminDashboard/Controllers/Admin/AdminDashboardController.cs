@@ -469,7 +469,7 @@ namespace AdminDashboard.Controllers
                     var responseContent = response.Content.ReadAsStringAsync().Result;
                  //   response.EnsureSuccessStatusCode();
 
-                    return Redirect("/AdminDashboard/productMyStore/1");
+                    return Redirect("/AdminDashboard/MyStore");
                 }
             }
             else
@@ -967,7 +967,7 @@ namespace AdminDashboard.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddCategory()
+        public  IActionResult AddCategory()
         {
             return View();
         }
